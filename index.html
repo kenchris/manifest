@@ -70,6 +70,31 @@
       caniuse: "web-app-manifest",
     };
     </script>
+    <style>
+      .icon-title {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .icons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .icons > div {
+        text-align: left;
+        padding: 10px;
+        width: 188px;
+      }
+
+      .icons > div > img {
+        width: 188px;
+        height: 188px;
+        min-width: 188px;
+        min-height: 188px;
+      }
+    </style>
   </head>
   <body>
     <section id='abstract'>
@@ -1148,6 +1173,169 @@
             that an application is being displayed in fullscreen to mimic the
             user interface of another application.
           </p>
+        </section>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Application icons and images
+      </h2>
+      <p>
+        Application icons can be used by the user agent in multiple places,
+        such as on a home-screen, in an app store, or even on top of
+        notifications.
+      </p>
+      <p>
+        For this reason, image can be declared with different sizes and for
+        different purposes. A user agent can then use these data to decide
+        which icons to use in different situations. For instance, a user agent
+        may prefer showing icons with the <a data-lt="badge purpose">badge</a>
+        purpose on top of notifications, as <a data-lt=
+        "badge purpose">badge</a> indicates an icon that is can be placed on
+        top of other content, in size constrained situations.
+      </p>
+      <section>
+        <h2>
+          Icon masks and safe zone
+        </h2>
+        <p>
+          Some platforms have their own preferred icon shape, but as web
+          applications should work across multiple platforms, it is possible to
+          indicate that an icon may be supercomposed with a mask, by adding the
+          <a data-lt="masking purpose">masking</a> purpose. This allows the
+          platform to ensure that the icon looks well integrated with the
+          platform, and even apply different masks and background colors in
+          different places throughout the platform.
+        </p>
+        <p>
+          Any icon indicating that it can be supercomposed with a mask, much
+          make sure that all important parts are within the <dfn>safe
+          zone</dfn>, which is defined as a circle with center point in the
+          center of the icon and with a radius of 2/5 (40%) of the icon size,
+          which means the smaller of the icon width and height, in case the
+          icon is not retangular.
+        </p>
+        <figure>
+          <img src="images/safe-zone.svg" width="340" height="340" alt=
+          "safe zone illustrated">
+          <figcaption>
+            The safe zone is a centrally positioned circle, with radius 2/5
+            (40%) of the icon size.
+          </figcaption>
+        </figure>
+        <p>
+          All pixels in this zone are guaranteed to be seen in all masks. What
+          is outside may be visible, but are not guaranteed to be so.
+        </p>
+        <p>
+          The user agent MAY apply a mask of any size, making any pixels that
+          are more than 2/5ths of the image size (minimum of width and height
+          if non-square) away from the center (the <a>safe zone</a>)
+          transparent.
+        </p>
+        <p>
+          The user agent MUST NOT make any pixel within the safe zone
+          transparent.
+        </p>
+        <p>
+          The user agent MAY superimpose the icon on top of a colored
+          background of any kind and MAY further enlarge the icon by adding
+          additional padding.
+        </p>
+        <section>
+          <h3>
+            Examples of masks
+          </h3>
+          <p class="note">
+            By staying inside the <a>safe zone</a>, most icons will have around
+            10% padding on the top, bottom, right and left with no content or
+            non-essential content, such as an icon background. For good visual
+            results, it is recommended adding a bit of padding to the inside of
+            the <a>safe zone</a> to make sure the main branding material
+            doesn't go straight to the edges after a mask have been applied.
+          </p>
+          <h2 class="icon-title">
+            Icons with "masking" purpose
+          </h2>
+          <div class="icons">
+            <div>
+              <img src="images/icon-plain.svg">
+              <div class="icon-title">
+                Image
+              </div>
+              <div>
+                The base image with transparent background
+              </div>
+            </div>
+            <div>
+              <img src="images/icon-margins.svg">
+              <div class="icon-title">
+                Margins
+              </div>
+              <div>
+                Margins are 1/5 of the image size
+              </div>
+            </div>
+            <div>
+              <img src="images/icon-safe-zone.svg">
+              <div class="icon-title">
+                Safe zone
+              </div>
+              <div>
+                Circle with radius 2/5 (40%) of the icon size
+              </div>
+            </div>
+          </div>
+          <h2 class="icon-title">
+            Mask examples
+          </h2>
+          <div class="icons">
+            <div>
+              <img src="images/icon-mask-android-roundsquare.svg">
+              <div class="icon-title">
+                Rounded square
+              </div>
+              <div>
+                Android
+              </div>
+            </div>
+            <div>
+              <img src="images/icon-mask-android-squircle.svg">
+              <div class="icon-title">
+                Squircle
+              </div>
+              <div>
+                Android
+              </div>
+            </div>
+            <div>
+              <img src="images/icon-mask-android-circle.svg">
+              <div class="icon-title">
+                Circle
+              </div>
+              <div>
+                Android
+              </div>
+            </div>
+            <div>
+              <img src="images/icon-mask-ios.svg">
+              <div class="icon-title">
+                Rounded square
+              </div>
+              <div>
+                iOS
+              </div>
+            </div>
+            <div>
+              <img src="images/icon-mask-windows.svg">
+              <div class="icon-title">
+                Fullbleed
+              </div>
+              <div>
+                Windows
+              </div>
+            </div>
+          </div>
         </section>
       </section>
     </section>
@@ -2500,6 +2688,14 @@
             color requirements differ from those of the application icon.
           </dd>
           <dt>
+            <dfn data-lt="badge masking">masking</dfn>:
+          </dt>
+          <dd>
+            The image is designed with <a>masking</a> in mind, such that any
+            part of the image that is outside the <a>safe zone</a> can safely
+            be ignored and masked away by the user agent.
+          </dd>
+          <dt>
             <dfn data-lt="any purpose">any</dfn>:
           </dt>
           <dd>
@@ -3286,6 +3482,9 @@
       <p>
         Dave Raggett and Dominique Hazael-Massieux contributed to this
         specification via the HTML5Apps project.
+      </p>
+      <p>
+        Claudio Gomboli for icon example images.
       </p>
     </section>
     <section id="conformance" data-status="done" class="appendix">
