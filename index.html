@@ -1186,22 +1186,22 @@
       </p>
       <p>
         For this reason, icons can be declared with different sizes and for
-        different purposes. A user agent can then use these metadata to decide
+        different purposes. A user agent can then use this metadata to decide
         which icon to use in different situations. For instance, a user agent
         might prefer showing icons with the <a>badge</a> purpose on top of
         notifications, as <a>badge</a> indicates an icon that can be placed on
-        top of other content, in size constrained situations.
+        top of other content, in size-constrained situations.
       </p>
       <section>
-        <h2>
+        <h2><a id="icon-masks"></a>
           Icon masks and safe zone
         </h2>
         <p>
           Some platforms have their own preferred icon shape, but as web
           applications should work across multiple platforms, it is possible to
-          indicate that an icon may be supercomposed with a mask, by adding the
-          <a>masking</a> purpose. This allows the platform to ensure that the
-          icon looks well integrated with the platform, and even apply
+          indicate that an icon may have a user-agent-specified mask applied, by
+          adding the <a>maskable</a> purpose. This allows the platform to ensure
+          that the icon looks well integrated with the platform, and even apply
           different masks and background colors in different places throughout
           the platform.
         </p>
@@ -1211,7 +1211,7 @@
           zone</dfn>, which is defined as a circle with center point in the
           center of the icon and with a radius of 2/5 (40%) of the icon size,
           which means the smaller of the icon width and height, in case the
-          icon is not retangular.
+          icon is not rectangular.
         </p>
         <figure>
           <img src="images/safe-zone.svg" width="340" height="340" alt=
@@ -1236,9 +1236,11 @@
           transparent.
         </p>
         <p>
-          The user agent MAY superimpose the icon on top of a colored
-          background of any kind and MAY further enlarge the icon by adding
-          additional padding.
+          The user agent MAY enlarge the icon by adding additional padding.
+        </p>
+        <p>
+          The user agent MUST paste any image containing transparent pixels
+          onto a solid color (eg. white) of the user agent's choice.
         </p>
         <section>
           <h3>
@@ -1253,7 +1255,7 @@
             doesn't go straight to the edges after a mask have been applied.
           </p>
           <h2 class="icon-title">
-            Icons with "masking" purpose
+            Icons with "maskable" purpose
           </h2>
           <div class="icons">
             <div>
@@ -1263,15 +1265,6 @@
               </div>
               <div>
                 The base image with transparent background
-              </div>
-            </div>
-            <div>
-              <img src="images/icon-margins.svg">
-              <div class="icon-title">
-                Margins
-              </div>
-              <div>
-                Margins are 1/5 of the image size
               </div>
             </div>
             <div>
@@ -2686,12 +2679,12 @@
             color requirements differ from those of the application icon.
           </dd>
           <dt>
-            <dfn data-lt="badge masking">masking</dfn>:
+            <dfn data-lt="badge maskable">maskable</dfn>:
           </dt>
           <dd>
-            The image is designed with <a>masking</a> in mind, such that any
-            part of the image that is outside the <a>safe zone</a> can safely
-            be ignored and masked away by the user agent.
+            The image is designed with <a href="#icon-masks">maskable</a> in mind,
+            such that any part of the image that is outside the <a>safe zone</a> can
+            safely be ignored and masked away by the user agent. See <a>icons</a>.
           </dd>
           <dt>
             <dfn data-lt="any purpose">any</dfn>:
